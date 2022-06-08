@@ -1,0 +1,8 @@
+{
+  "algo": "image_classifier",
+  "evaluator": "image_classifier",
+  "is_gen2": true,
+  "is_live": true,
+  "needs_gpu": false,
+  "version": "1.21"
+}

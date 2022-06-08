@@ -1,0 +1,9 @@
+{
+  "camera.diff": -1,
+  "camera.hi_res": false,
+  "looper.auto_upload": false,
+  "looper.capture.annotate": false,
+  "looper.capture.enabled": false,
+  "looper.capture.period": 5,
+  "looper.outbound_queue": ""
+}

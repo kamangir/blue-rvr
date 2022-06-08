@@ -1,0 +1,11 @@
+{
+    "algo": "sem_seg",
+    "description": "blue navigation semantic segmentation",
+    "hardware": "blue",
+    "input": "rgb image",
+    "is_gen2": true,
+    "is_live": true,
+    "needs_gpu": false,
+    "output": "safety signature",
+    "version": "1.24"
+}

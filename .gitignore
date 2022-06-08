@@ -1,6 +1,7 @@
 *.pyc
 *.lock
 /pycache/
+/__pycache__/
 /dist/
 /*.egg-info
 /.idea
