@@ -5,15 +5,15 @@ import numpy as np
 import os.path
 
 
-import bolt.annotation as annotation
-import bolt.assets as assets
-import bolt.cache as cache
-import bolt.file as file
-from bolt.logging import crash_report
-from bolt.options import Options
-import bolt.string as string
+import abcli.annotation as annotation
+import abcli.assets as assets
+import abcli.cache as cache
+import abcli.file as file
+from abcli.logging import crash_report
+from abcli.options import Options
+import abcli.string as string
 
-import bolt.logging
+import abcli.logging
 import logging
 
 logger = logging.getLogger(__name__)
@@ -22,7 +22,7 @@ class_names = "turn_left,turn_right,no_action".split(",")
 current_key_code_values = "100,97".split(",")
 # turn_left = 100  # D
 # turn_right = 97  # A
-# ref: bolt/algo/blue/__main__.py
+# ref: abcli/algo/blue/__main__.py
 
 window_size = 128
 
@@ -138,19 +138,33 @@ def preprocess(data_asset, options=""):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        "task", type=str, default="", help="preprocess",
+        "task",
+        type=str,
+        default="",
+        help="preprocess",
     )
     parser.add_argument(
-        "--data_asset", type=str, default="", help="",
+        "--data_asset",
+        type=str,
+        default="",
+        help="",
     )
     parser.add_argument(
-        "--purpose", type=str, default="predict", help="eval/predict/train",
+        "--purpose",
+        type=str,
+        default="predict",
+        help="eval/predict/train",
     )
     args = parser.parse_args()
 
     success = False
     if args.task == "preprocess":
-        success = preprocess(args.data_asset, {"purpose": args.purpose,},)
+        success = preprocess(
+            args.data_asset,
+            {
+                "purpose": args.purpose,
+            },
+        )
     else:
         logger.error('blue_driver: unknown task "{}".'.format(args.task))
 

@@ -1,1 +1,3 @@
-version = 1.47
+name = "blue"
+
+version = "1.1.48"

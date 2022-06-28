@@ -1,12 +1,12 @@
 #! /usr/bin/env bash
 
-if [ "$bolt_is_rpi" == true ] ; then
-    bolt_rvr_revision="102"
+if [ "$abcli_is_rpi" == true ] ; then
+    abcli_rvr_revision="102"
 
-    if [ -f "${bolt_path_git}/bolt_install_rvr_${bolt_rvr_revision}_complete" ] ; then
-        bolt_log "verified rvr ${bolt_rvr_revision}."
+    if [ -f "${abcli_path_git}/abcli_install_rvr_${abcli_rvr_revision}_complete" ] ; then
+        abcli_log "verified rvr ${abcli_rvr_revision}."
     else
-        bolt_log "installing rvr ${bolt_rvr_revision}..."
+        abcli_log "installing rvr ${abcli_rvr_revision}..."
 
         # https://github.com/sphero-inc/sphero-sdk-raspberrypi-python/blob/master/first-time-setup.sh
         sudo apt-get update -y
@@ -42,7 +42,7 @@ if [ "$bolt_is_rpi" == true ] ; then
         sudo python3 -m pip install pyserial
         sudo python3 -m pip install pyserial-asyncio
 
-        touch ${bolt_path_git}/bolt_install_rvr_${bolt_rvr_revision}_complete
+        touch ${abcli_path_git}/abcli_install_rvr_${abcli_rvr_revision}_complete
     fi
 
 fi

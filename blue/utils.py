@@ -6,17 +6,17 @@ import numpy as np
 import os
 import sys
 
-import bolt.assets as assets
-import bolt.annotation as annotation
-import bolt.file as file
-from bolt.hardware import instance as hardware
-import bolt.host as host
-from bolt.looper import Looper
+import abcli.assets as assets
+import abcli.annotation as annotation
+import abcli.file as file
+from abcli.hardware import instance as hardware
+import abcli.host as host
+from abcli.looper import Looper
 from training_framework.model.image_classifier import image_classifier
-import bolt.string as string
-from bolt.timer import Timer
+import abcli.string as string
+from abcli.timer import Timer
 
-import bolt.logging
+import abcli.logging
 import logging
 
 
@@ -32,7 +32,7 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 
-bolt_asset_name = os.getenv("bolt_asset_name")
+abcli_asset_name = os.getenv("abcli_asset_name")
 
 pulse = Timer(host.arguments.get("blue.pulse", 3), "blue.pulse")
 
@@ -59,10 +59,10 @@ loop = asyncio.get_event_loop()
 
 looper = Looper()
 
-bolt_asset_folder = os.getenv("bolt_asset_folder")
+abcli_asset_folder = os.getenv("abcli_asset_folder")
 
 camera_enabled = host.arguments.get("blue.camera.enabled", True)
-model_asset = os.getenv("bolt_driving_blue_model")
+model_asset = os.getenv("abcli_driving_blue_model")
 
 if model_asset:
     logger.info("blue: model={}".format(model_asset))
@@ -93,11 +93,17 @@ if camera_enabled:
 
                 if success:
                     save_frame = annotation.store(
-                        bolt_asset_name, frame_number, "live_blue_driver", prediction,
+                        abcli_asset_name,
+                        frame_number,
+                        "live_blue_driver",
+                        prediction,
                     )
             else:
                 save_frame = annotation.store(
-                    bolt_asset_name, frame_number, "current_key_code", 0,
+                    abcli_asset_name,
+                    frame_number,
+                    "current_key_code",
+                    0,
                 )
 
         hardware.output(hardware.data_pin, prediction != -1)
@@ -106,8 +112,7 @@ if camera_enabled:
         if save_frame:
             file.save_image(
                 os.path.join(
-                    bolt_asset_folder, "Data/{}/camera.jpg".format(
-                        frame_number)
+                    abcli_asset_folder, "Data/{}/camera.jpg".format(frame_number)
                 ),
                 frame,
             )
@@ -183,7 +188,10 @@ async def main():
 
         if current_key_code != -1 and frame_number != -1:
             save_frame = annotation.store(
-                bolt_asset_name, frame_number, "current_key_code", current_key_code,
+                abcli_asset_name,
+                frame_number,
+                "current_key_code",
+                current_key_code,
             )
 
         if current_key_code == go_forward:
