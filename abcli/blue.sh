@@ -54,5 +54,5 @@ function abcli_blue() {
         return
     fi
 
-    abcli_log_error "unknown task: blue '$task'."
+    abcli_log_error "-blue: $task: command not found."
 }
