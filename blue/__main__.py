@@ -1,6 +1,7 @@
 from . import *
 from .utils import *
 import abcli.logging
+from abcli.logging import crash_report
 import logging
 
 logging.basicConfig(
@@ -28,7 +29,7 @@ finally:
     try:
         looper.close()
     except:
-        crash_report("looper.close() failed")
+        crash_report(f"{name}: close: failed.")
 
     logger.info("blue.drive(): ended - press any key...")
 

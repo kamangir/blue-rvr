@@ -9,7 +9,6 @@ import abcli.annotation as annotation
 import abcli.assets as assets
 import abcli.cache as cache
 import abcli.file as file
-from abcli.logging import crash_report
 from abcli.options import Options
 import abcli.string as string
 
