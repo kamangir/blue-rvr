@@ -17,6 +17,8 @@ import logging
 
 logger = logging.getLogger(__name__)
 
+name = "blue_driver"
+
 class_names = "turn_left,turn_right,no_action".split(",")
 current_key_code_values = "100,97".split(",")
 # turn_left = 100  # D
@@ -90,7 +92,7 @@ def preprocess(data_asset, options=""):
     images = images[:index]
     labels = labels[:index]
     if index < len(frames):
-        logger.error("{} bad frame(s).".format(len(frames) - index))
+        logger.error(f"-{name}: preprocess: {len(frames) - index} bad frame(s).")
     logger.info(
         string.pretty_list(
             labels, {"binned": True, "class_names": class_names, "items": "frame(s)"}
@@ -129,7 +131,7 @@ def preprocess(data_asset, options=""):
         )
 
     logger.error(
-        "blue_driver.preprocess(): unknonw purpose: {}.".format(options["purpose"])
+        f"-blue: blue_driver: preprocess: {options['purpose']} purpose not found."
     )
     return False
 
@@ -165,7 +167,7 @@ if __name__ == "__main__":
             },
         )
     else:
-        logger.error('blue_driver: unknown task "{}".'.format(args.task))
+        logger.error(f"-{name}: {args.task}: command not found.")
 
     if not success:
-        logger.error("blue_driver({}): failed.".format(args.task))
+        logger.error(f"-{name}: {args.task}: failed.")

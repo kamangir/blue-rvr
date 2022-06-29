@@ -1,3 +1,3 @@
 name = "blue"
 
-version = "1.1.54"
+version = "1.1.56"
