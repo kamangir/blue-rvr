@@ -27,7 +27,7 @@ function abcli_blue() {
         python3 -m blue
 
         abcli_upload open
-        abcli_tag set . $(abcli_host get tags),$abcli_host_name,$(abcli_string_today),$abcli_fullname,$(abcli_wifi_ssid),annotated
+        abcli_tag set . $abcli_host_tags,$abcli_host_name,$(abcli_string_today),$abcli_fullname,$(abcli_wifi_ssid),annotated
 
         abcli_log "blue stopped driving..."
         return
