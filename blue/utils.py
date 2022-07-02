@@ -1,19 +1,17 @@
 from sphero_sdk import SpheroRvrAsync
 from sphero_sdk import SerialAsyncDal
 from .helper_keyboard_input import KeyboardHelper
-import cv2
 import numpy as np
 import os
 import sys
-
-import abcli.assets as assets
-import abcli.annotation as annotation
-import abcli.file as file
+from abcli import objects
+from abcli import annotation
+from abcli import file
 from abcli.hardware import instance as hardware
-import abcli.host as host
+from abcli.tasks import host
 from abcli.looper import Looper
 from training_framework.model.image_classifier import image_classifier
-import abcli.string as string
+from abcli import string
 from abcli.timer import Timer
 
 import abcli.logging
@@ -32,7 +30,7 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 
-abcli_asset_name = os.getenv("abcli_asset_name")
+abcli_object_name = os.getenv("abcli_object_name")
 
 pulse = Timer(host.arguments.get("blue.pulse", 3), "blue.pulse")
 
@@ -59,17 +57,17 @@ loop = asyncio.get_event_loop()
 
 looper = Looper()
 
-abcli_asset_folder = os.getenv("abcli_asset_folder")
+abcli_object_path = os.getenv("abcli_object_path")
 
 camera_enabled = host.arguments.get("blue.camera.enabled", True)
-model_asset = os.getenv("abcli_driving_blue_model")
+model_object = os.getenv("abcli_driving_blue_model")
 
-if model_asset:
-    logger.info("blue: model={}".format(model_asset))
+if model_object:
+    logger.info("blue: model={}".format(model_object))
 
     classifier = image_classifier()
-    if not classifier.load(assets.path_of(model_asset)):
-        model_asset = ""
+    if not classifier.load(objects.path_of(model_object)):
+        model_object = ""
 
 if camera_enabled:
     camera = PiCamera()
@@ -93,14 +91,14 @@ if camera_enabled:
 
                 if success:
                     save_frame = annotation.store(
-                        abcli_asset_name,
+                        abcli_object_name,
                         frame_number,
                         "live_blue_driver",
                         prediction,
                     )
             else:
                 save_frame = annotation.store(
-                    abcli_asset_name,
+                    abcli_object_name,
                     frame_number,
                     "current_key_code",
                     0,
@@ -112,7 +110,7 @@ if camera_enabled:
         if save_frame:
             file.save_image(
                 os.path.join(
-                    abcli_asset_folder, "Data/{}/camera.jpg".format(frame_number)
+                    abcli_object_path, "Data/{}/camera.jpg".format(frame_number)
                 ),
                 frame,
             )
@@ -188,7 +186,7 @@ async def main():
 
         if current_key_code != -1 and frame_number != -1:
             save_frame = annotation.store(
-                abcli_asset_name,
+                abcli_object_name,
                 frame_number,
                 "current_key_code",
                 current_key_code,
