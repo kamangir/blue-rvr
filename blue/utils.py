@@ -117,7 +117,7 @@ if camera_enabled:
 
             logger.info(
                 "frame #{}: {}".format(
-                    frame_number, string.pretty_size_of_matrix(frame)
+                    frame_number, string.pretty_shape_of_matrix(frame)
                 )
             )
 
